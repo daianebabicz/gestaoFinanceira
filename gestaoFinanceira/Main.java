@@ -26,13 +26,15 @@ public class Main {
         int quantidade = input.nextInt();
         input.close();
 
-        Produto novoProduto = new Produto(produtoEscolhido.getNome(), quantidade * produtoEscolhido.getValor());
+        double valorVenda = quantidade * produtoEscolhido.getValor();
+        Produto novoProduto = new Produto(produtoEscolhido.getNome(), valorVenda);
 
         CompraAbstrata novaCompra = factory.getCompraAbstrata(localidade, novoProduto);
 
         // Cálculos e resultados
         Contabilidade contabilidade = new Contabilidade();
         contabilidade.registrarLancamento(novaCompra);
+        contabilidade.atualizarContasVenda(valorVenda);
         contabilidade.calcularDRE();
         contabilidade.calcularBalancoPatrimonial();
 

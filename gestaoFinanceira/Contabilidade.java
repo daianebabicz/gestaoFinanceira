@@ -10,18 +10,25 @@ public class Contabilidade {
     private double resultados;
 
     public Contabilidade() {
-        caixa = 1000;
-        contaBancaria = 2000;
-        contasReceber = 100;
-        estoque = 200;
-        contasPagar = 100;
-        capitalSocial = 10000;
+        caixa = 10000;
+        contaBancaria = 0;
+        contasReceber = 0;
+        estoque = 0;
+        contasPagar = 10000; // manual
+        capitalSocial = 0;
         resultados = 0;
     }
 
     public void registrarLancamento(CompraAbstrata compra) {
+        caixa += compra.getCaixa();
+        contaBancaria += compra.getContaBancaria();
         contasReceber += compra.getContasReceber();
+        estoque += compra.getEstoque();
         contasPagar += compra.getContasPagar();
+    }
+
+    public void atualizarContasVenda(double valorVenda) {
+        contasReceber += valorVenda;
     }
 
     public void calcularDRE() {
@@ -39,6 +46,7 @@ public class Contabilidade {
     public void calcularBalancoPatrimonial() {
         capitalSocial = caixa + contaBancaria + contasReceber + estoque - contasPagar;
     }
+
     public void exibirBalancoPatrimonial() {
         calcularBalancoPatrimonial();
         System.out.println("----------- Balanço Patrimonial -----------");
@@ -48,7 +56,7 @@ public class Contabilidade {
         System.out.println("Contas a receber: " + contasReceber);
         System.out.println("Estoque: " + estoque);
         System.out.println("Total do Ativo: " + (caixa + contaBancaria + contasReceber + estoque));
-        System.out.println("----------- Passivo ----------- ");
+        System.out.println("----------- Passivo -----------");
         System.out.println("Contas a pagar: " + contasPagar);
         System.out.println("Capital Social: " + capitalSocial);
     }
