@@ -1,31 +1,24 @@
 package gestaoFinanceira;
 
 public class CompraEmEstado extends CompraAbstrata {
-    public CompraEmEstado(String localidade, Produto novoProduto) {
-        this.localidade = localidade;
-        this.produto = novoProduto.produto;
-        this.quantidade = novoProduto.quantidade;
-        this.preco = novoProduto.preco;
+
+    public CompraEmEstado(String localidade, Produto produto, int quantidade) {
+        super(localidade, produto, quantidade);
     }
 
     @Override
-    public void escrituracao() {
-        aPagar = quantidade * preco;
-        estoque = estoque - aPagar;
+    public double getCaixa() {
+        return quantidade * preco;
     }
 
     @Override
-    public double getContaBancaria() {
-        return 0; // Valor a ser lançado na conta "Conta bancária"
-    }
-
-    @Override
-    public double getContasReceber() {
-        return 0; // Valor a ser lançado na conta "Contas a receber"
+    public double getEstoque() {
+        return quantidade * preco;
     }
 
     @Override
     public String toString() {
-        return "Contas a pagar: " + aPagar + "\n Valor em estoque: " + estoque;
+        return "Contas a pagar: " + aPagar + "\nValor em estoque: " + estoque;
     }
+
 }
